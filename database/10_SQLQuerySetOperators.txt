@@ -1,0 +1,17 @@
+select top 1 * from Sample.Description
+Select top 1 * from [Product].[Description] 
+select top 1 * from [Product].[Category]
+select top 1 * from [Sales].[Customer]
+select top 1 * from [Sales].[SalesOrder]
+
+----- Union / Union all / Intersection /Except -----------------
+select ProductID, Description, ISBN
+from Product.Description 
+where ISBN in ('A10000', 'A10001','A10002','A10003')
+-- union
+-- union all
+-- intersect
+except
+select ProductID, Description, ISBN
+from Sample.Description
+where ISBN in ('A10000', 'A10001','A10002','A10007')

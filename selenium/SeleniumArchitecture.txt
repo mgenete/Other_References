@@ -1,0 +1,280 @@
+//1. download selenium sever jar file
+//2. download chrome/gecko/IE driver exe files and save in the same folder as selenium server jar file
+//3. open cmd and go to folder location
+     type: java -jar selenium-server-standalone-3.8.1.jar
+     open browser: localhost:4444
+     create session
+
+Postman
+---------
+
+//To create a new session---> POST call
+=========================================
+1. uri 
+	--> http://localhost:4444/wd/hub/session
+2. payload 
+	--> desired capabilities
+
+{
+  "a": {
+    "applicationCacheEnabled": false,
+    "rotatable": false,
+    "mobileEmulationEnabled": false,
+    "networkConnectionEnabled": false,
+    "chrome": {
+      "chromedriverVersion": "2.41.578737 (49da6702b16031c40d63e5618de03a32ff6c197e)",
+      "userDataDir": "C:\\Users\\Matti\\AppData\\Local\\Temp\\scoped_dir12156_26573"
+    },
+    "takesHeapSnapshot": true,
+    "pageLoadStrategy": "normal",
+    "databaseEnabled": false,
+    "handlesAlerts": true,
+    "hasTouchScreen": false,
+    "version": "64.0.3282.186",
+    "platform": "Windows NT",
+    "browserConnectionEnabled": false,
+    "nativeEvents": true,
+    "acceptSslCerts": true,
+    "locationContextEnabled": true,
+    "webStorageEnabled": true,
+    "browserName": "chrome",
+    "takesScreenshot": true,
+    "javascriptEnabled": true,
+    "cssSelectorsEnabled": true,
+    "setWindowRect": true,
+    "unexpectedAlertBehaviour": ""
+  }
+}
+
+
+3. response
+status --> 200
+body-->
+
+{
+    "status": 0,
+    "sessionId": "89956704b3d2743b87e6a2d868f29db6",
+    "value": {
+        "applicationCacheEnabled": false,
+        "rotatable": false,
+        "mobileEmulationEnabled": false,
+        "networkConnectionEnabled": false,
+        "chrome": {
+            "chromedriverVersion": "2.34.522940 (1a76f96f66e3ca7b8e57d503b4dd3bccfba87af1)",
+            "userDataDir": "C:\\Users\\Matti\\AppData\\Local\\Temp\\scoped_dir15292_6915"
+        },
+        "takesHeapSnapshot": true,
+        "pageLoadStrategy": "normal",
+        "databaseEnabled": false,
+        "handlesAlerts": true,
+        "hasTouchScreen": false,
+        "version": "64.0.3282.186",
+        "platform": "Windows NT",
+        "browserConnectionEnabled": false,
+        "nativeEvents": true,
+        "acceptSslCerts": true,
+        "locationContextEnabled": true,
+        "webStorageEnabled": true,
+        "browserName": "chrome",
+        "takesScreenshot": true,
+        "javascriptEnabled": true,
+        "cssSelectorsEnabled": true,
+        "setWindowRect": true,
+        "unexpectedAlertBehaviour": ""
+    }
+}
+
+====================================================================================================
+
+
+
+
+
+Implicit wait
+------------------------------------------
+/session/:sessionId/timeouts/implicit_wait
+POST call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/timeouts/implicit_wait
+payload
+{
+"ms":2500
+}
+
+Maximize window
+----------------------------------------
+/session/:sessionId/window/:windowHandle/maximize
+POST call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/window/current/maximize
+payload --> N/A
+
+Delete all cookies
+--------------------------------
+DELETE 
+/session/:sessionId/cookie
+DELETE call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/cookie
+
+
+
+Navigate to a url
+-------------------------
+POST 
+/session/:sessionId/url
+POST call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/url
+payload
+{
+"url": "https://www.freecrm.com/index.html"
+}
+
+
+Get current page title
+------------------------------
+GET 
+/session/:sessionId/title
+GET call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/title
+
+response body:
+{
+    
+"sessionId": "89956704b3d2743b87e6a2d868f29db6",
+    
+"status": 0,
+    
+"value": "#1 Free CRM for Any Business: Online Customer Relationship Software"
+
+}
+
+
+Get current page source
+---------------------------
+GET /session/:sessionId/source
+GET call
+uri -->http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/source
+
+
+
+
+Window/browser navigation
+------------------------------------
+POST 
+/session/:sessionId/back
+POST 
+/session/:sessionId/refresh
+POST 
+/session/:sessionId/forward
+POST call
+uri-->http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/back
+payload-->N/A
+
+
+
+
+
+
+FindElement
+----------------------------
+POST /session/:sessionId/elements
+POST call
+url-->http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/element
+payload-->
+{
+"using": "xpath" ,
+"value": "//a/font[contains(text(),'Sign Up')]"
+}
+
+
+response body
+{
+    
+"sessionId": "89956704b3d2743b87e6a2d868f29db6",
+    
+"status": 0,
+    
+"value": {
+        
+"ELEMENT": "0.9220246984956717-1"
+}
+
+}
+
+To click on an element
+-------------------------
+POST /session/:sessionId/element/:id/click
+POST call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/element/0.9220246984956717-1/click
+
+
+Find username
+{
+"using": "name" 
+"value": "username"
+}
+
+Find password
+{
+"using": "name" 
+"value": "password"
+}
+
+Find login button 
+{
+"using": "xpath" 
+"value": "//input[@type='submit' and @value='Login']"
+}
+
+
+
+From response payload
+-------------------------
+username = "ELEMENT": "0.23874275378528442-1"
+password = "ELEMENT": "0.23874275378528442-2"
+loginBtn = "ELEMENT": "0.23874275378528442-3"
+
+SendKeys to username
+-------------------------------------
+POST /session/:sessionId/element/:id/value
+POST call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/element/0.23874275378528442-1/value
+payload-->
+{
+"value": ["Tpeter"]
+}
+
+SendKeys to password
+-------------------------------------
+POST /session/:sessionId/element/:id/value
+POST call
+uri--> http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/element/0.23874275378528442-2/value
+payload-->
+{
+"value": ["Tpeter12"]
+}
+
+
+Click to login
+-------------------------------------
+http://localhost:4444/wd/hub/session/89956704b3d2743b87e6a2d868f29db6/element/0.23874275378528442-3/click
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

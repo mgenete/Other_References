@@ -1,0 +1,80 @@
+SELECT 
+   ORDINAL_POSITION
+  ,COLUMN_NAME
+  ,DATA_TYPE
+  ,CHARACTER_MAXIMUM_LENGTH
+  ,IS_NULLABLE
+  ,COLUMN_DEFAULT
+FROM   
+  INFORMATION_SCHEMA.COLUMNS 
+WHERE   
+  TABLE_NAME = 'EmployeeLoginData' 
+ORDER BY 
+  ORDINAL_POSITION ASC; 
+
+
+---Alter table ----
+
+---> ALTER TABLE allows columns to be added that can contain nulls
+Alter table Sample.FreeCRMLoginData
+	add LastModifiedDate datetime	
+	
+	select * from Sample.FreeCRMLoginData
+
+
+
+---> if column is not null DEFAULT definition must be specified
+Alter table Sample.FreeCRMLoginData
+	add LastModifiedDate2 datetime not null    
+	default getdate()
+
+	select * from Sample.FreeCRMLoginData
+
+
+
+---> to drop a column
+Alter table Sample.FreeCRMLoginData
+	drop column LastModifiedDate2
+
+
+
+----> to drop constraint
+Alter table Sample.FreeCRMLoginData
+	drop constraint [DF__FreeCRMLo__LastM__2E1BDC42]
+
+
+
+---> to add constraint
+Alter table Sample.FreeCRMLoginData
+	add constraint pk_newprimarykey
+	Primary key 
+	(ID)
+
+
+
+---> to rename a column
+Exec sp_rename 'Sample.FreeCRMLoginData.ID', 'EmployeeID', 'column'
+
+select * from Sample.FreeCRMLoginData
+
+
+
+---> to rename a table
+Exec sp_rename 'Sample.FreeCRMLoginData','EmployeeLoginData'
+
+select * from Sample.FreeCRMLoginData  -- returns invalid Invalid object name  
+select * from Sample.EmployeeLoginData
+
+
+
+-- to modify column
+Alter table Sample.EmployeeLoginData
+	alter column LastModifiedDate datetime not null
+
+
+
+---> to add computed column
+Alter table Sample.EmployeeLoginData
+	add FullName as (FirstName+' '+LastName)
+
+

@@ -1,0 +1,80 @@
+select GETDATE(),SYSDATETIME(),UPPER('matti')
+SELECT CONVERT(VARCHAR, SYSDATETIME(), 107)
+
+
+------------ User Defined Functions (UDF) ------------
+-- it’s a sql script stored on the server
+-- allows to write a custom line of business code to be used in queries
+-- parenthesis are required when calling UDFs
+-- may or may not have parameters
+-- two types of UDFs 1. Scalar UDF 2.Table Valued UDFs
+
+
+
+--scalar UDF returns a single value
+
+create function getCurrentServerDate()
+returns nvarchar(15)
+as
+Begin 
+	return convert(nvarchar(15),sysdatetime(),107)
+end
+
+select dbo.getCurrentServerDate()
+
+
+create function getCustomerEmail(@CustomerID int)
+returns nvarchar(10)
+as
+begin
+	return (select CustomerEmail
+		from Sales.Customer
+		where CustomerID = @CustomerID
+		)
+end
+
+select dbo.getCustomerEmail(301)
+
+
+create function getProductCategoryName(@ProductID int)
+returns nvarchar(15)
+as
+begin
+return (select a.Name
+			from Product.Category a
+				inner join Product.Description b
+				on a.ProdutCategoryID = b.ProdutCategoryID
+				where b.ProductID = @ProductID
+				)
+end
+
+select dbo.getProductCategoryName(201)
+select dbo.getProductCategoryName(207)
+select dbo.getProductCategoryName(213)
+
+
+
+--- table valued UDFs returns result set
+
+create function getCustomerInfo(@CustomerID int)
+returns table
+as
+	return (select *
+		from Sales.Customer
+		where CustomerID = @CustomerID
+		)
+
+select * from dbo.getCustomerInfo(302)
+
+create function getTotalSalesByCustomer(@CustomerID int)
+returns table
+as
+return (select a.CustomerName, b.OrderDate, sum(b.TotalDue) as TotalSales
+			from Sales.Customer a
+				join Sales.SalesOrder b
+				on a.CustomerID = b.CustomerID
+				where b.CustomerID = @CustomerID
+				group by a.CustomerName, b.OrderDate
+				)
+
+select * from dbo.getTotalSalesByCustomer(301)

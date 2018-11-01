@@ -1,0 +1,70 @@
+
+
+/*
+Data Integrity
+- enforcing data integrity guarantees the quality of data in the database
+- data integrity is enfored through
+	-primary key
+	-data type
+	-foreign key
+	-user defined (unique, defalut keys)
+
+-- Primary key --
+
+create table Product.shipment(
+	ProductCategoryID int not null primary key
+		)
+create table Product.shipment(
+	ProductCategoryID int not null constraint pk_books primary key
+	)
+create table Product.shipment(
+	ProductCategoryID int not null
+	constraint pk_books primary key (ProductCategoryID)
+	)
+create table Product.shipment(
+	ProductCategoryID int not null,
+	ProductID int not null
+	constraint pk_books primary key (ProductCategoryID, ProductID)
+	)
+
+
+-- Foreign key --
+
+create table Product.shipment(
+	ProductCategoryID int not null,
+	ProductID int not null
+		constraint pk_books primary key (ProductCategoryID)
+		constraint fk_books foreign key (ProductID) references Product.Product (ProductID) 
+			on delete cascade or /on delete set null/
+			on update cascade
+	)
+
+
+-- Check constraint --
+used to enforce business rules.
+business rule: list price can not be negative
+
+create table Sales.SalesOrder(
+	UnitPrice money not null constraint ck_UnitPrice check (UnitPrice >0),
+	)
+
+-- default constraint --
+A default contraint defines what the default value should be for a column. It is used to specify a value for column when a value is not set by  a user. 
+
+create table Sales.SalesOrder(
+	OrderDate datetime not null constraint df_OrderDate default getdate(),
+	ShipDate datetime not null constraint df_ShipDate default getdate()+3
+	)
+
+
+--- Unique constraint ---
+A default contraint defines what the default value should be for a column. It is used to specify a value for column when a value is not set by  a user. 
+
+create table Sales.Customer (
+	CustomerID int not null,
+	CustomerEmail nvarchar(10) not null unique,
+	constraint pk_SalesCustomer primary key (CustomerID)
+)
+
+
+ */

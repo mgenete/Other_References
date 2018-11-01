@@ -1,0 +1,38 @@
+Maven Set up
+
+1. download apache maven
+2. add the path to environment variable /MAVEN_HOME/
+3. add bin directory to system path  
+
+check if set is success
+-----------------------
+cmd prompt
+mvn --version
+
+create maven project from cmd
+-----------------------------
+...go to eclipse folder
+mvn archetype:generate -DgroupId=testmaven -DartifactId=Mavenjava -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+--> groupId is project name
+--> artifactId is sub-project name
+-->archetypeArtifactId project template name
+	--> for testing template name is: maven-archetype-quickstart
+
+
+...go to project created folder
+mvn eclipse:eclipse
+
+
+excecuting on cmd
+----------------------
+folder should point to pom.xml file
+mvn clean
+mvn compile
+mvn test
+
+
+executing with profiles
+----------------------
+mvn test -PSmoke
+mvn test -PRegression
+-Dsurefire.suiteXmlFiles=smoke.xml

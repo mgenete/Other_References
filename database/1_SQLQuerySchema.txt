@@ -1,0 +1,14 @@
+/*
+schema provides a way of grouping objects together
+data base objects are named using four part naming schemas
+<instance>.<database>.<schema>.<object>
+
+*/
+
+--- to create a schema
+create schema Product AUTHORIZATION dbo
+create schema Sales authorization dbo
+create schema Sample authorization dbo
+
+--- to transfer objects from one schema to another
+Alter schema Product transfer Sales.Customer  /*tranfer Customer table from Sales schema to Product schema */

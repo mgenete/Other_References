@@ -1,0 +1,79 @@
+
+/*
+-- data types --
+
+Text characters
+----------------------
+- nchar(size)/char(size)
+- nvarchar(size)/varchar(size)
+
+Oracle db
+- char(size)
+- varchar2(size)
+
+
+Numeric
+----------------------
+- int
+- smallint
+- money
+- decimal(p,s)
+
+oracle db
+- numeric (size)
+- numeric(p,s)
+
+
+DateTime
+-----------------------
+- time
+12:35:29. 1234567
+- date
+2007-05-08
+- smalldatetime
+2007-05-08 12:35:00
+- datetime
+2007-05-08 12:35:29.123
+
+oracle db
+date (dd-mm-yyyy)
+
+
+create table Sales.SalesOrder(
+	SalesOrderID INT not null,
+	OrderDate DATETIME not null constraint df_OrderDate default getdate(),
+	ShipDate DATETIME not null constraint df_ShipDate default getdate()+3,
+	CustomerID INT not null,
+	UnitPrice MONEY not null constraint ck_UnitPrice check (UnitPrice >0),
+	OrderQty SMALLINT not null,
+	Name NVARCHAR(25) not null
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

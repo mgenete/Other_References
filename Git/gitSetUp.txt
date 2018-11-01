@@ -1,0 +1,144 @@
+git init
+git remote add origin URL
+git pull origin master
+git add .
+git commit -m "First commit"
+git push origin master
+
+
+create git repo (project_ci)
+create maven project in mars and link with git repo
+create maven project in oxygen and clone git repo
+->File
+	->import
+		->Git
+			->Project from git
+				->Existing local repository
+					->add
+						->browse
+							->import existing eclipse project
+							
+->git --version
+->to add user variables
+git config --global user.name "Tom Fredie"
+git config --global user.email "tom@gmail.com"
+
+->to see current git configurations
+git config --list
+
+->to create local repo
+git init
+
+->to stop tracking the project with git
+rm -rf .git
+
+->to link remote repo with loca repo
+git remote add origin url
+
+->to fetch files from repo
+git pull origin master
+
+->to add files to stagging area
+git add sample.java
+git add .
+git add -A
+
+->to record snapshots to repo
+git commit -m "message"
+git commit -a -m "message"
+
+->to ignore files 
+touch .gitignore
+open the text file
+paste file names to be ignored
+save
+
+->to remove files from stagging area
+git reset or
+git reset filename
+
+->to clone from github
+git clone url
+git clone=git init + git remote add + git fetch + git checkout
+
+->to get remote info
+git remote -v
+git branch -a
+
+->to push to repo
+git pull origin master
+git push origin master
+
+->to create a branch
+git branch branchname
+
+->to switch to branch
+git checkout branchname
+
+->to push branch to remote repo
+git push -u origin branchname
+
+->to merge branch with master
+git checkout master
+git pull origin master
+git branch --merged
+git merge branchname
+git push origin master
+
+->to delete a branch
+git branch -d branchname
+git branch -a 
+git push origin --delete branchname
+
+->to get list of commit
+git reflog
+
+->to undo commit without affecting history
+git revert hashcode
+:wq 
+git log
+git diff old hashcode new hashcode
+
+->to ammend git commit message
+git commit --amend -m "corrected message"
+
+->to move a commit to a different branch
+git log (to grab the hashcode)
+git checkout branchname
+git cherry-pick hashcode
+git log (to verify)
+
+->to delete commit
+git reset or
+git reset --soft hashcode (will revert to stagging area) or
+git reset hashcode (will revert to working area) or
+git reset --hard hashcode (will revert to previous commit) or
+git reset HEAD (revert to working area)
+
+->to get rid of untracked files
+git clean -df
+
+->to save untracked files for later user
+git stash
+
+->to reapply
+git stash pop
+
+->to list stash
+git stash list
+
+->to drop stash
+git stash drop stashcode or
+git stash clear
+
+->to remove unstagged filed
+gi checkout -- .
+
+->git force pull to over write local files
+git fetch --all
+git reset --hard origin/master
+git pull origin master
+
+
+
+

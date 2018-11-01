@@ -1,0 +1,78 @@
+Hub
+=======
+cd c:/sits/selenium server
+java -jar selenium-server-standalone-3.14.0.jar -role hub
+
+Node
+======
+cd c:/sits/selenium server
+
+Chrome
+java -Dwebdriver.chrome.driver="c:/sits/selenium server/chromedriver.exe" -jar selenium-server-standalone-3.14.0.jar -role node -hub http://192.168.1.4:4444/grid/register
+
+Firefox
+java -Dwebdriver.gecko.driver="c:/sits/selenium server/geckodriver.exe" -jar selenium-server-standalone-3.8.1.jar -role node -hub http://192.168.1.4:4444/grid/register
+
+MSEdge
+java -Dwebdriver.edge.driver="c:/sits/selenium server/MicrosoftWebDriver.exe" -jar selenium-server-standalone-3.8.1.jar -role node -hub http://192.168.1.4:4444/grid/register
+
+
+
+
+
+
+
+
+
+========================================
+download vmware workstation
+configure with ubuntu os
+download and configure java/javac
+download webdrivers (chromedriver,geckdriver)
+download selenium server standalone jar file
+**save all the drivers and standalone jar file in the same location(folder)
+download browsers
+ping host<-->vm to confirm connections
+get the ip addresses of vm's
+host http://192.168.1.3
+vm http://192.168.86.128
+
+from host
+open cmd prompt
+go to folder where selenium stand alone is saved
+cd c:/sits/seleniumserver
+java -jar selenium-server-standalone-3.8.1.jar -role hub
+message: Nodes should register to http://192.168.1.3:4444/grid/register
+
+
+from vm
+cd /home/matti/Desktop/QA/selenium_server
+
+chromedriver
+java -Dwebdriver.chrome.driver="/home/matti/Desktop/QA/selenium_server/chromedriver" -jar selenium-server-standalone-3.11.0.jar -role node -hub http://192.168.1.3:4444/grid/register
+
+geckodriver
+java -Dwebdriver.gecko.driver="/home/matti/Desktop/QA/selenium_server/geckodriver" -jar selenium-server-standalone-3.11.0.jar -role node -hub http://192.168.1.3:4444/grid/register
+
+
+java config in linux
+=====================
+java -version
+javac - version
+
+sudo add-apt-repository ppa:webupd8team/java
+press enter
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+press y
+press og
+press yes
+
+java -version
+javac -version
+whereis java
+whereis javac
+
+
+
+

@@ -1,0 +1,17 @@
+from cmd prompt from jenkins.war folder
+java -jar jenkins.war -httpPort=9090
+
+pwd stored
+user/.jenkins/sekret.key
+
+runs on localhost:8080
+
+System.setProperty("hudson.model.DirectoryBrowserSupport.csp","")
+
+
+scheduling
+--------------
+M H D M DayWk
+30 6 * * * (run at 6:30am every day,month)
+* * * * * (every minutes)
+

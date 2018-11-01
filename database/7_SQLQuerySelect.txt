@@ -1,0 +1,105 @@
+
+Select * from [Product].[Description]
+select * from [Product].[Category]
+select * from [Sales].[Customer]
+select * from [Sales].[SalesOrder]
+
+---- aggregate ---------
+
+select count(*) as Count, AVG(UnitPrice) as AvgPrice, MIN(UnitPrice) as MinPrice, MAX(UnitPrice) as MaxPrice, SUM(TotalDue) as TotalSales
+from Sales.SalesOrder
+
+
+----------- group by ----------------
+
+select a.name, c.UnitPrice, c.OrderQty, sum(c.TotalDue) as TotalSales
+from Product.Category a
+join Product.Description b
+on a.ProdutCategoryID = b.ProdutCategoryID
+join Sales.SalesOrder c
+on c.ProductID = b.ProductID
+group by a.name, c.UnitPrice, c.OrderQty
+
+
+select a.name, c.OrderDate, c.UnitPrice, c.OrderQty, sum(c.TotalDue) as TotalSales
+from Product.Category a
+join Product.Description b
+on a.ProdutCategoryID = b.ProdutCategoryID
+join Sales.SalesOrder c
+on c.ProductID = b.ProductID
+group by a.name, c.OrderDate, c.UnitPrice, c.OrderQty
+
+
+------------- having --------------------
+
+select a.name, c.UnitPrice, c.OrderQty, sum(c.TotalDue) as TotalSales
+from Product.Category a
+join Product.Description b
+on a.ProdutCategoryID = b.ProdutCategoryID
+join Sales.SalesOrder c
+on c.ProductID = b.ProductID
+group by a.name, c.UnitPrice, c.OrderQty
+having c.UnitPrice < 10
+
+
+------------- filtering data --------------
+
+select a.CustomerName, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Sales.Customer a
+join Sales.SalesOrder b
+on a.CustomerID = b.CustomerID
+
+
+select a.Description, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Product.Description a
+join Sales.SalesOrder b
+on a.ProductID = b.ProductID
+where a.ISBN IN ('A10000', 'A10002', 'A10007')
+
+
+select a.Description, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Product.Description a
+join Sales.SalesOrder b
+on a.ProductID = b.ProductID
+where a.Description is null
+
+
+select a.Description, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Product.Description a
+join Sales.SalesOrder b
+on a.ProductID = b.ProductID
+where a.Description is not null
+
+
+select a.Description, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Product.Description a
+join Sales.SalesOrder b
+on a.ProductID = b.ProductID
+--where a.Description like 'H%'
+--where a.Description like '%S'
+where a.Description like ('__R%')
+
+
+select a.Description, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Product.Description a
+join Sales.SalesOrder b
+on a.ProductID = b.ProductID
+-- where b.UnitPrice between 6 and 10
+where b.UnitPrice = 0 or a.Description is null
+
+
+------------ sub query -------------------
+select top 1 * from [Product].[Category]
+select top 1 * from [Product].[Description]
+select top 1 * from [Sales].[Customer]
+select top 1 * from [Sales].[SalesOrder]
+
+
+select a.CustomerName, b.UnitPrice, b.OrderQty, b.TotalDue
+from Sales.Customer a
+inner join Sales.SalesOrder b
+on a.CustomerID = b.CustomerID
+where ProductID in (
+select ProductID from Product.Description
+where ProductID between 208 and 212
+)

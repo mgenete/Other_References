@@ -1,0 +1,54 @@
+
+create schema Product AUTHORIZATION dbo
+create schema Sales authorization dbo
+create schema Sample authorization dbo
+
+
+create table Product.Category(
+ProdutCategoryID int not null,
+Name nvarchar(25) not null
+constraint pk_ProdutCategory primary key (ProdutCategoryID)
+)
+
+create table Sales.Customer (
+CustomerID int not null,
+CustomerName nvarchar(25) not null,
+CustomerEmail nvarchar(10) not null unique,
+constraint pk_SalesCustomer primary key (CustomerID)
+)
+
+create table Sales.SalesOrder(
+SalesOrderID int not null,
+OrderDate datetime not null constraint df_OrderDate default getdate(),
+ShipDate datetime not null constraint df_ShipDate default getdate()+3,
+CustomerID int not null,
+UnitPrice money not null constraint ck_UnitPrice check (UnitPrice >0),
+OrderQty smallint not null,
+TotalDue as(UnitPrice * OrderQty) persisted not null,
+constraint pk_SalesOrder primary key (SalesOrderID),
+constraint fk_CustomerID foreign key (CustomerID) references Sales.Customer(CustomerID)
+)
+
+
+create table Product.Description (
+ProductID int not null,
+ProdutCategoryID int not null,
+Description nvarchar(25) not null,
+ISBN nvarchar(10) not null
+constraint pk_ProductDescription primary key (ProductID),
+constraint fk_ProductCategoryID foreign key (ProdutCategoryID) references Product.Category(ProdutCategoryID)
+)
+
+------- create table using Select Into -------------
+Select *
+into Sample.Description
+from Product.Description
+
+select * from Sample.Description
+
+ ---- to copy a table from FreeCRM db to NatGeo db
+select *
+into NatGeo.Sample.FreeCRMLoginData
+from FreeCRM.dbo.FreeCRMLoginData
+
+select * from Sample.FreeCRMLoginData

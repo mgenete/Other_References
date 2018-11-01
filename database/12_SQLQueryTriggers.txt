@@ -1,0 +1,82 @@
+select * from Sample.EmployeeLoginData
+
+-- a trigger is a database object that performs additional processing on incoming database actions
+-- There are two types of triggers
+	-- DML Triggers (INSERT, UPDATE, DELETE, MERGE, OR SELECT)
+	-- DDL Triggers (CREATE, ALTER, DROP)
+
+
+/* DML TRIGGERS */
+
+---> create a trigger so that it automatically updates the LastModifiedDate column
+create trigger
+[name:update LastModified to getDate()]
+on Sample.EmployeeLoginData
+	after insert, update
+as
+	update Sample.EmployeeLoginData
+		set LastModifiedDate = GETDATE()
+		where EmployeeID in (
+		select EmployeeID
+		from inserted
+		)
+		
+
+update Sample.EmployeeLoginData
+set LastName = 'Young'
+where EmployeeID = 5
+
+select * from Sample.EmployeeLoginData
+
+
+/*
+INSERTED & DELETED tables
+INSERTED and DELETED virtual tables contain the "before" and "after" images of the rows. 
+INSERTED table contains the "after" images (the new/incoming data). A row exists in INSERTED only if it was part of INSERT statement or if it is changed in the UPDATE statement.
+
+DELETED has the overwritten/deleted rows. A row exists in DELETED only it was part of an UPDATE statement or if it was actually DELETEd
+UPDATE statement populates both: INSERTED contains the new values and DELETED contains the over-written or current values
+*/
+
+
+---> moves old passwords to the PreviousPassword column, when passwords are changed by user
+Alter table Sample.EmployeeLoginData
+	add PreviousPassword nvarchar(10) null
+
+create trigger
+[Employee_audit password change]
+on Sample.EmployeeLoginData
+	after update
+as
+	if UPDATE(Password)
+		update Sample.EmployeeLoginData
+		set PreviousPassword = d.Password
+		from Sample.EmployeeLoginData e
+		join deleted d
+		on e.EmployeeID = d.EmployeeID
+
+update Sample.EmployeeLoginData
+set Password = 'abc1245'
+where EmployeeID = 4
+
+select * from Sample.EmployeeLoginData
+
+
+
+/* DDL TRIGGERS */
+
+create trigger 
+[table_preventDrop]
+on database
+for drop_table
+as
+rollback transaction
+Print 'Please disable before dropping tables'
+
+create table Sample.DropTable(
+ProdutCategoryID int not null,
+Name nvarchar(25) not null
+constraint pk_ProdutCategory primary key (ProdutCategoryID)
+)
+
+drop table Sample.DropTable

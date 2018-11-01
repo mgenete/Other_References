@@ -1,0 +1,29 @@
+
+--- inner join -----
+select a.name, c.UnitPrice, c.OrderQty, sum(c.TotalDue) as TotalSales
+from Product.Category a
+join Product.Description b
+on a.ProdutCategoryID = b.ProdutCategoryID
+join Sales.SalesOrder c
+on c.ProductID = b.ProductID
+group by a.name, c.UnitPrice, c.OrderQty
+
+
+select a.CustomerName, b.OrderDate, b.UnitPrice, b.OrderDate, b.TotalDue
+from Sales.Customer a
+join Sales.SalesOrder b
+on a.CustomerID = b.CustomerID
+
+-------- cross join /  ------------------
+
+select *
+from Sample.Description a
+cross join Product.Description b
+
+
+------- outer join (left/right/full) ------------
+
+select *
+from Sample.Description a
+right join Product.Description b
+on a.ProductID = b.ProductID

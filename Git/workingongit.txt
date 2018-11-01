@@ -1,0 +1,27 @@
+importing from git
+1. right click and select import from git
+2. copy and paste url
+3. select branch to import
+4. select directory and then file name
+
+============//===============
+
+1. always create a working branch
+2. commit to working branch
+3. checkout to master
+4. right click on from master br to merge
+	* fast-forward(clean merge)
+	when merrged my version becomes the new head/master
+5. push upstream to remote
+	* to see history(righ click on project and select show In -> history)
+
+==============//=================
+handling non fast-forward (conflicts)
+1. fetch (to see what happened in remote)
+2. pull
+	*will result in conflict
+3. go to git stagging
+4. right click on file and selct merge tools
+5. clean conflicts
+6. commit
+7. push to remote
