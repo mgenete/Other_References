@@ -1,6 +1,4 @@
-create git repo (project_ci)
-create maven project in mars and link with git repo
-create maven project in oxygen and clone git repo
+create git repo
 ->File
 	->import
 		->Git
@@ -110,14 +108,14 @@ git push -u origin branchname
 ->to merge branch with master
 git checkout master
 git pull origin master
-git branch --merged (To see which branches are already merged into the branch you’re on)
+git branch --merged (To see which branches are already merged into the branch youâ€™re on)
 git merge branchname
 git branch --merged
 git push origin master
 
 
 ->to delete a branch
-git branch --no-merged (To see all the branches that contain work you haven’t yet merged in)
+git branch --no-merged (To see all the branches that contain work you havenâ€™t yet merged in)
 git branch -d branchname
 git branch -a 
 git push origin --delete branchname
