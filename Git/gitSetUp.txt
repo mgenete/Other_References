@@ -2,13 +2,10 @@ git init
 git remote add origin URL
 git pull origin master
 git add .
-git commit -m "First commit"
+git commit -m "coment"
 git push origin master
 
-
-create git repo (project_ci)
-create maven project in mars and link with git repo
-create maven project in oxygen and clone git repo
+import git
 ->File
 	->import
 		->Git
