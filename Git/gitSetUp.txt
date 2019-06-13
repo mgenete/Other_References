@@ -1,19 +1,5 @@
-git init
-git remote add origin URL
-git pull origin master
-git add .
-git commit -m "coment"
-git push origin master
 
-import git
-->File
-	->import
-		->Git
-			->Project from git
-				->Existing local repository
-					->add
-						->browse
-							->import existing eclipse project
+
 							
 ->git --version
 ->to add user variables
